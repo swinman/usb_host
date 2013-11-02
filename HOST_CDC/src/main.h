@@ -3,7 +3,7 @@
  *
  * \brief Declaration of main function used by example
  *
- * Copyright (C) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2011 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -44,7 +44,7 @@
 #ifndef _MAIN_H_
 #define _MAIN_H_
 
-/*! \brief Notify that a SOF has been sent (each 1 ms) */
+//! \brief Notify that a SOF has been sent (each 1 ms)
 void main_usb_sof_event(void);
 
 /*! \brief Notify that a USB device has been connected or disconnected.
@@ -54,4 +54,4 @@ void main_usb_sof_event(void);
  */
 void main_usb_connection_event(uhc_device_t *dev, bool b_present);
 
-#endif /* _MAIN_H_ */
+#endif // _MAIN_H_

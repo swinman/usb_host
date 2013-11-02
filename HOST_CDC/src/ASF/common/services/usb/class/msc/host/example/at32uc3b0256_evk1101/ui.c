@@ -3,7 +3,7 @@
  *
  * \brief User Interface
  *
- * Copyright (C) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2011 - 2012 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -42,8 +42,8 @@
  */
 
 #include <asf.h>
-#include "conf_usb_host.h"
 #include "ui.h"
+
 
 /**
  * \name Main user interface functions
@@ -61,17 +61,21 @@ void ui_usb_mode_change(bool b_host_mode)
 {
 	ui_init();
 }
-/*! @} */
+//! @}
 
 /**
  * \name Host mode user interface functions
  * @{
  */
 
-/*! Status of device enumeration */
+//! Status of device enumeration
 static uhc_enum_status_t ui_enum_status=UHC_ENUM_DISCONNECT;
-/*! Blink frequency depending on device speed */
+//! Blink frequency depending on device speed
 static uint16_t ui_device_speed_blink;
+//! Status of the MSC test
+static bool ui_test_done;
+//! Result of the MSC test
+static bool ui_test_result;
 
 void ui_usb_vbus_change(bool b_vbus_present)
 {
@@ -113,19 +117,7 @@ void ui_usb_enum_event(uhc_device_t *dev, uhc_enum_status_t status)
 		ui_device_speed_blink = 1000;
 		break;
 	}
-	if (ui_enum_status == UHC_ENUM_SUCCESS) {
-		/* USB Device CDC connected
-		   Open and configure UART and USB CDC ports */
-		usb_cdc_line_coding_t cfg = {
-			.dwDTERate   = CPU_TO_LE32(115200),
-			.bCharFormat = CDC_STOP_BITS_1,
-			.bParityType = CDC_PAR_NONE,
-			.bDataBits   = 8,
-		};
-		uart_open();
-		uart_config(&cfg);
-		uhi_cdc_open(0, &cfg);
-	}
+	ui_test_done = false;
 }
 
 void ui_usb_wakeup_event(void)
@@ -138,55 +130,70 @@ void ui_usb_sof_event(void)
 
 	if (ui_enum_status == UHC_ENUM_SUCCESS) {
 
-		/* Display device enumerated and in active mode */
+		// Display device enumerated and in active mode
 		if (++counter_sof > ui_device_speed_blink) {
 			counter_sof = 0;
 			LED_Toggle(LED1);
+			if (ui_test_done && !ui_test_result) {
+				// Test fail then blink led
+				LED_Toggle(LED3);
+			}
 		}
 	}
 }
 
-void ui_com_rx_start(void)
+void ui_test_flag_reset(void)
+{
+	ui_test_done = false;
+	LED_Off(LED3);
+}
+
+void ui_test_finish(bool b_success)
+{
+	ui_test_done = true;
+	ui_test_result = b_success;
+	if (b_success) {
+		LED_On(LED3);
+	}
+}
+//! @}
+
+//! \name Callback to show the MSC read and write access
+//! @{
+void ui_start_read(void)
 {
 	LED_On(LED2);
 }
 
-void ui_com_rx_stop(void)
+void ui_stop_read(void)
 {
 	LED_Off(LED2);
 }
 
-void ui_com_tx_start(void)
+void ui_start_write(void)
 {
-	LED_On(LED3);
+	LED_On(LED2);
 }
 
-void ui_com_tx_stop(void)
+void ui_stop_write(void)
 {
-	LED_Off(LED3);
+	LED_Off(LED2);
 }
+//! @}
 
-void ui_com_error(void)
-{
-}
-
-void ui_com_overflow(void)
-{
-}
-
-/*! @} */
 
 /**
  * \defgroup UI User Interface
  *
  * Human interface on EVK1101 :
  * - PWR led is on when power present
- * - Led 0 is on when USB OTG cable is plugged in and Vbus is present
+ * - Led 0 is on when USB OTG cable is plugged and Vbus is present
  * - Led 1 is continuously on when a device is connected
  * - Led 1 blinks when the device is enumerated and USB in idle mode
  *   - The blink is slow (1s) with low speed device
  *   - The blink is normal (0.5s) with full speed device
  *   - The blink is fast (0.25s) with high speed device
- * - Led 2 is on during data transfer from CDC to UART
- * - Led 3 is on during data transfer from UART to CDC
+ * - Led 2 is on when a read or write access is on going
+ * - Led 3 is on when a LUN test is success
+ * - Led 3 blinks when a LUN test is unsuccessful
  */

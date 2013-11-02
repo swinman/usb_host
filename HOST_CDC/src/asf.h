@@ -59,6 +59,12 @@
 // From module: EVK1101
 #include <led.h>
 
+// From module: FAT file system
+#include <fat.h>
+#include <file.h>
+#include <fs_com.h>
+#include <navigation.h>
+
 // From module: FLASHC - Flash Controller
 #include <flashc.h>
 
@@ -70,6 +76,9 @@
 
 // From module: Interrupt management - UC3 implementation
 #include <interrupt.h>
+
+// From module: Memory Control Access Interface
+#include <ctrl_access.h>
 
 // From module: PM Power Manager- UC3 A0/A1/A3/A4/B0/B1 implementation
 #include <power_clocks_lib.h>
@@ -85,17 +94,14 @@
 // From module: System Clock Control - UC3 B0 implementation
 #include <sysclk.h>
 
-// From module: USART - Universal Synchronous/Asynchronous Receiver/Transmitter
-#include <usart.h>
-
-// From module: USB CDC Protocol
-#include <usb_protocol_cdc.h>
-
-// From module: USB Host CDC (Single Class support)
-#include <uhi_cdc.h>
+// From module: USB Host MSC (Single Class support)
+#include <uhi_msc_mem.h>
 
 // From module: USB Host stack core
 #include <uhc.h>
 #include <uhd.h>
+
+// From module: USB MSC Protocol
+#include <usb_protocol_msc.h>
 
 #endif // ASF_H

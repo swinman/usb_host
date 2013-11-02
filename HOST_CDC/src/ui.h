@@ -3,7 +3,7 @@
  *
  * \brief Common User Interface for USB host MSC application
  *
- * Copyright (C) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2011-2012 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -46,17 +46,17 @@
 
 #include "uhc.h"
 
-/*! \brief Initializes the user interface */
+//! \brief Initializes the user interface
 void ui_init(void);
 
-/*! \brief Notify that the USB mode has automatically switched.
- * This is only possible when the ID pin is available.
+/*! \brief Notify that the USB mode are switched automatically.
+ * This is possible only when ID pin is available.
  *
  * \param b_host_mode true, if the host mode has been selected
  */
 void ui_usb_mode_change(bool b_host_mode);
 
-/*! \brief Notify that a new Vbus transition has been detected.
+/*! \brief Notify that a Vbus are changed
  * Available only in USB hardware with Vbus monitoring.
  *
  * \param b_vbus_present true, if Vbus is high.
@@ -75,11 +75,20 @@ void ui_usb_vbus_error(void);
  */
 void ui_usb_connection_event(uhc_device_t *dev, bool b_present);
 
-/*! \brief Notify that a USB device or the host has woken up the USB line. */
+//! \brief Notify that a USB device or the host has wake up the USB line.
 void ui_usb_wakeup_event(void);
 
-/*! \brief Notify that a SOF has been sent (each 1 ms) */
+//! \brief Notify that a SOF has been sent (each 1 ms)
 void ui_usb_sof_event(void);
+
+//! \brief Resets the status flag of the test
+void ui_test_flag_reset(void);
+
+/*! \brief Displays the result of the test
+ *
+ * \param b_success   true, if the test is successfull
+ */
+void ui_test_finish(bool b_success);
 
 /*! \brief Notify the end of a USB device enumeration
  *
@@ -88,28 +97,12 @@ void ui_usb_sof_event(void);
  */
 void ui_usb_enum_event(uhc_device_t *dev, uhc_enum_status_t status);
 
-/*! \brief Called when a data is received on CDC
- */
-void ui_com_rx_start(void);
+//! \name Callback to show the MSC read and write accesses
+//! @{
+void ui_start_read(void);
+void ui_stop_read(void);
+void ui_start_write(void);
+void ui_stop_write(void);
+//! @}
 
-/*! \brief Called when a data is received on com port
- */
-void ui_com_tx_start(void);
-
-/*! \brief Called when all pending data are sent on com port
- */
-void ui_com_rx_stop(void);
-
-/*! \brief Called when all pending data are sent on CDC
- */
-void ui_com_tx_stop(void);
-
-/*! \brief Called when a communication error occur
- */
-void ui_com_error(void);
-
-/*! \brief Called when an overflow occur
- */
-void ui_com_overflow(void);
-
-#endif /* _UI_H_ */
+#endif // _UI_H_
