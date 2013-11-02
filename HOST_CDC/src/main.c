@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief Main functions for USB host mass storage example
+ * \brief Main functions for USB host mouse example
  *
- * Copyright (C) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2011-2012 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -41,54 +41,45 @@
  *
  */
 
-#include "conf_usb_host.h"
 #include <asf.h>
+#include "conf_usb_host.h"
+#include "ui.h"
 
 /*! \brief Main function. Execution starts here.
  */
 int main(void)
 {
-	/* Initialize the synchronous clock system to the default configuration
-	   set in conf_clock.h.
-	   \note All non-essential peripheral clocks are initially disabled. */
 	sysclk_init();
-
-	/* Initialize interrupts */
 	irq_initialize_vectors();
 	cpu_irq_enable();
 
-	/* Initialize the sleep manager, lock initial mode. */
+	// Initialize the sleep manager
 	sleepmgr_init();
 
-	/* Initialize the resources used by this example to the default
-	   configuration set in conf_board.h */
 	board_init();
-
-	/* Initialize the user interface */
 	ui_init();
 
-	/* Start USB host stack */
+	// Start USB host stack
 	uhc_start();
 
-	/* The main loop manages only the power mode
-	   because the USB management is done by interrupt */
+	// The USB management is entirely managed by interrupts.
+	// As a consequence, the user application does only have to play with the power modes.
 	while (true) {
 		sleepmgr_enter_sleep();
 	}
 }
 
+
 /**
- * \mainpage ASF USB host CDC
+ * \mainpage ASF USB host HID mouse
  *
  * \section intro Introduction
- * This example shows how to implement a USB host CDC
+ * This example shows how to implement a USB host HID mouse
  * on Atmel MCU with USB module.
+ * The application note AVR4953 provides information about this implementation.
  *
  * \section startup Startup
- * After loading firmware, connect the board (EVKxx,Xplain,...) to a USB
- * device CDC.
- * The example is a bridge between a USART from the main MCU
- * and the USB host CDC interface.
+ * After loading firmware, connect the board (EVKxx,Xplain,...) to a USB device mouse.
  *
  * \copydoc UI
  *
@@ -97,10 +88,11 @@ int main(void)
  * The example uses the following module groups:
  * - Basic modules:
  *   Startup, board, clock, interrupt, power management
- * - USB host stack and CDC modules:
+ * - USB host stack and HID modules:
  *   <br>services/usb/
  *   <br>services/usb/uhc/
- *   <br>services/usb/class/cdc/host/
+ *   <br>services/usb/class/hid/
+ *   <br>services/usb/class/hid/host/mouse/
  * - Specific implementation:
  *    - main.c,
  *      <br>initializes clock

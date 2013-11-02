@@ -3,7 +3,7 @@
  *
  * \brief Board configuration
  *
- * Copyright (C) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2011 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -44,7 +44,6 @@
 #ifndef CONF_BOARD_H_INCLUDED
 #define CONF_BOARD_H_INCLUDED
 
-/* Enable UART Port */
-#define CONF_BOARD_COM_PORT
+// Only the default board init (switchs/leds) is necessary for this example
 
 #endif /* CONF_BOARD_H_INCLUDED */

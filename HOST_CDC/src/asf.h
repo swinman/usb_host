@@ -85,14 +85,11 @@
 // From module: System Clock Control - UC3 B0 implementation
 #include <sysclk.h>
 
-// From module: USART - Universal Synchronous/Asynchronous Receiver/Transmitter
-#include <usart.h>
+// From module: USB HID Device protocol
+#include <usb_protocol_hid.h>
 
-// From module: USB CDC Protocol
-#include <usb_protocol_cdc.h>
-
-// From module: USB Host CDC (Single Class support)
-#include <uhi_cdc.h>
+// From module: USB Host HID Mouse (Single Class support)
+#include <uhi_hid_mouse.h>
 
 // From module: USB Host stack core
 #include <uhc.h>
