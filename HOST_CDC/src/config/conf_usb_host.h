@@ -122,7 +122,7 @@
 
 //@}
 
-#include "uhi_msc.h"
+#include "uhi_class.h"
 #include "ui.h"
 #include "main.h"
 
