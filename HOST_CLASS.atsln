@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Atmel Studio Solution File, Format Version 11.00
-Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "HOST_HID", "HOST_HID\HOST_HID.cproj", "{BF7484D3-6AF0-4064-9B4A-6F90DC0A1F8C}"
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "HOST_HID", "HOST_CLASS.cproj", "{BF7484D3-6AF0-4064-9B4A-6F90DC0A1F8C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
