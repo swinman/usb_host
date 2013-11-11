@@ -3,7 +3,7 @@
  *
  * \brief Board configuration
  *
- * Copyright (C) 2011 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
