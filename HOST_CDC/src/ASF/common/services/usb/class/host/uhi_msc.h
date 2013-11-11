@@ -45,7 +45,7 @@
 #define _UHI_MSC_H_
 
 #include "conf_usb_host.h"
-#include "usb_protocol_msc.h"
+#include "usb_protocol_class.h"
 #include "spc_protocol.h"
 #include "sbc_protocol.h"
 #include "uhc.h"
@@ -60,7 +60,7 @@ extern "C" {
  * \defgroup uhi_msc_group_uhc Interface with USB Host Core (UHC)
  *
  * Define and functions required by UHC.
- * 
+ *
  * @{
  */
 
