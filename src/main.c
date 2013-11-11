@@ -3,7 +3,7 @@
  *
  * \brief Main functions for USB host mouse example
  *
- * Copyright (C) 2011-2012 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -49,26 +49,34 @@
  */
 int main(void)
 {
+	/* Initialize the synchronous clock system to the default configuration
+	   set in conf_clock.h.
+	   \note All non-essential peripheral clocks are initially disabled. */
 	sysclk_init();
+
+	/* Initialize interrupts */
 	irq_initialize_vectors();
 	cpu_irq_enable();
 
-	// Initialize the sleep manager
+	/* Initialize the sleep manager, lock initial mode. */
 	sleepmgr_init();
 
+	/* Initialize the resources used by this example to the default
+	   configuration set in conf_board.h */
 	board_init();
+
+	/* Initialize the user interface */
 	ui_init();
 
-	// Start USB host stack
+	/* Start USB host stack */
 	uhc_start();
 
-	// The USB management is entirely managed by interrupts.
-	// As a consequence, the user application does only have to play with the power modes.
+	/* The main loop manages only the power mode
+	   because the USB management is done by interrupt */
 	while (true) {
 		sleepmgr_enter_sleep();
 	}
 }
-
 
 /**
  * \mainpage ASF USB host HID mouse
