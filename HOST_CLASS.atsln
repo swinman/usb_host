@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Atmel Studio Solution File, Format Version 11.00
-Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "HOST_MSC", "HOST_MSC\HOST_MSC.cproj", "{E9A664F4-9635-4C6D-8A93-6DE37DB866FE}"
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "HOST_MSC", "HOST_CLASS.cproj", "{E9A664F4-9635-4C6D-8A93-6DE37DB866FE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
