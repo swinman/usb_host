@@ -126,7 +126,7 @@
 
 /*@} */
 
-#include "uhi_cdc.h"
+#include "uhi_class.h"
 #include "ui.h"
 #include "uart.h"
 #include "main.h"
