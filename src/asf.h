@@ -88,11 +88,11 @@
 // From module: USART - Universal Synchronous/Asynchronous Receiver/Transmitter
 #include <usart.h>
 
-// From module: USB CDC Protocol
-#include <usb_protocol_cdc.h>
+// From module: USB Class Specific Protocol
+#include <usb_protocol_class.h>
 
-// From module: USB Host CDC (Single Class support)
-#include <uhi_cdc.h>
+// From module: USB Host Single Class support
+#include <uhi_class.h>
 
 // From module: USB Host stack core
 #include <uhc.h>
