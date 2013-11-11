@@ -82,134 +82,134 @@ static Ctrl_status uhi_msc_mem_translate_status(lun_status_t status);
 
 uint8_t uhi_msc_mem_get_lun(void)
 {
-	while (!uhi_msc_is_available());
-	return uhi_msc_get_lun();
+  while (!uhi_msc_is_available());
+  return uhi_msc_get_lun();
 }
 
 Ctrl_status uhi_msc_mem_test_unit_ready(uint8_t lun)
 {
-	uhi_msc_lun_t *lun_desc;
+  uhi_msc_lun_t *lun_desc;
 
-	while (!uhi_msc_is_available());
+  while (!uhi_msc_is_available());
 
-	uhi_msc_mem_command_ongoing = true;
-	uhi_msc_mem_lun = lun;
-	if (!uhi_msc_scsi_test_unit_ready(uhi_msc_mem_lun, uhi_msc_mem_stop_pooling)) {
-		return CTRL_FAIL;
-	}
-	while (uhi_msc_mem_command_ongoing);
-	if (!uhi_msc_mem_command_status) {
-		return CTRL_FAIL;
-	}
-	lun_desc = uhi_msc_get_lun_desc(uhi_msc_mem_lun);
-	return uhi_msc_mem_translate_status(lun_desc->status);
+  uhi_msc_mem_command_ongoing = true;
+  uhi_msc_mem_lun = lun;
+  if (!uhi_msc_scsi_test_unit_ready(uhi_msc_mem_lun, uhi_msc_mem_stop_pooling)) {
+    return CTRL_FAIL;
+  }
+  while (uhi_msc_mem_command_ongoing);
+  if (!uhi_msc_mem_command_status) {
+    return CTRL_FAIL;
+  }
+  lun_desc = uhi_msc_get_lun_desc(uhi_msc_mem_lun);
+  return uhi_msc_mem_translate_status(lun_desc->status);
 }
 
 Ctrl_status uhi_msc_mem_read_capacity(uint8_t lun, uint32_t * u32_nb_sector)
 {
-	uhi_msc_lun_t *lun_desc;
+  uhi_msc_lun_t *lun_desc;
 
-	while (!uhi_msc_is_available());
-	uhi_msc_mem_lun = lun;
-	lun_desc = uhi_msc_get_lun_desc(uhi_msc_mem_lun);
-	if (lun_desc == NULL) {
-		return CTRL_FAIL;
-	}
-	if (lun_desc->capacity.block_len != 512) {
-		// Note: The ctrl_access module uses only the data transfer size of 512 bytes.
-		// The uhi_msc_mem module does not implement a RAM cache
-		// to support the transfer size more than 512 bytes.
-		return CTRL_FAIL; // Not supported
-	}
-	*u32_nb_sector = lun_desc->capacity.max_lba;
-	return uhi_msc_mem_translate_status(lun_desc->status);
+  while (!uhi_msc_is_available());
+  uhi_msc_mem_lun = lun;
+  lun_desc = uhi_msc_get_lun_desc(uhi_msc_mem_lun);
+  if (lun_desc == NULL) {
+    return CTRL_FAIL;
+  }
+  if (lun_desc->capacity.block_len != 512) {
+    // Note: The ctrl_access module uses only the data transfer size of 512 bytes.
+    // The uhi_msc_mem module does not implement a RAM cache
+    // to support the transfer size more than 512 bytes.
+    return CTRL_FAIL; // Not supported
+  }
+  *u32_nb_sector = lun_desc->capacity.max_lba;
+  return uhi_msc_mem_translate_status(lun_desc->status);
 }
 
 uint8_t uhi_msc_mem_read_sector_size(uint8_t lun)
 {
-	uhi_msc_lun_t *lun_desc;
+  uhi_msc_lun_t *lun_desc;
 
-	while (!uhi_msc_is_available());
-	uhi_msc_mem_lun = lun;
-	lun_desc = uhi_msc_get_lun_desc(uhi_msc_mem_lun);
-	if (lun_desc == NULL) {
-		return 0;
-	}
-	return lun_desc->capacity.block_len / 512;
+  while (!uhi_msc_is_available());
+  uhi_msc_mem_lun = lun;
+  lun_desc = uhi_msc_get_lun_desc(uhi_msc_mem_lun);
+  if (lun_desc == NULL) {
+    return 0;
+  }
+  return lun_desc->capacity.block_len / 512;
 }
 
 bool uhi_msc_mem_wr_protect(uint8_t lun)
 {
-	uhi_msc_lun_t *lun_desc;
+  uhi_msc_lun_t *lun_desc;
 
-	while (!uhi_msc_is_available());
-	uhi_msc_mem_lun = lun;
-	lun_desc = uhi_msc_get_lun_desc(uhi_msc_mem_lun);
-	if (lun_desc == NULL) {
-		return true;
-	}
-	if (lun_desc->capacity.block_len != 512) {
-		return true;
-	}
-	return lun_desc->b_write_protected;
+  while (!uhi_msc_is_available());
+  uhi_msc_mem_lun = lun;
+  lun_desc = uhi_msc_get_lun_desc(uhi_msc_mem_lun);
+  if (lun_desc == NULL) {
+    return true;
+  }
+  if (lun_desc->capacity.block_len != 512) {
+    return true;
+  }
+  return lun_desc->b_write_protected;
 }
 
 bool uhi_msc_mem_removal(void)
 {
-	return true;
+  return true;
 }
 
 Ctrl_status uhi_msc_mem_read_10_ram(uint32_t addr, void *ram)
 {
-	uhi_msc_lun_t *lun_desc;
+  uhi_msc_lun_t *lun_desc;
 
-	while (!uhi_msc_is_available());
-	// uhi_msc_mem_lun already selected by a previous command
-	lun_desc = uhi_msc_get_lun_desc(uhi_msc_mem_lun);
-	if (lun_desc == NULL) {
-		return CTRL_FAIL;
-	}
-	if (uhi_msc_mem_translate_status(lun_desc->status) != CTRL_GOOD) {
-		return uhi_msc_mem_translate_status(lun_desc->status);
-	}
-	if (lun_desc->capacity.block_len != 512) {
-		return CTRL_FAIL; // Not supported
-	}
-	uhi_msc_mem_command_ongoing = true;
-	uhi_msc_scsi_read_10(uhi_msc_mem_lun, addr, ram, 1,
-			uhi_msc_mem_stop_pooling);
-	while (uhi_msc_mem_command_ongoing);
-	if (!uhi_msc_mem_command_status) {
-		return CTRL_FAIL;
-	}
-	return uhi_msc_mem_translate_status(lun_desc->status);
+  while (!uhi_msc_is_available());
+  // uhi_msc_mem_lun already selected by a previous command
+  lun_desc = uhi_msc_get_lun_desc(uhi_msc_mem_lun);
+  if (lun_desc == NULL) {
+    return CTRL_FAIL;
+  }
+  if (uhi_msc_mem_translate_status(lun_desc->status) != CTRL_GOOD) {
+    return uhi_msc_mem_translate_status(lun_desc->status);
+  }
+  if (lun_desc->capacity.block_len != 512) {
+    return CTRL_FAIL; // Not supported
+  }
+  uhi_msc_mem_command_ongoing = true;
+  uhi_msc_scsi_read_10(uhi_msc_mem_lun, addr, ram, 1,
+      uhi_msc_mem_stop_pooling);
+  while (uhi_msc_mem_command_ongoing);
+  if (!uhi_msc_mem_command_status) {
+    return CTRL_FAIL;
+  }
+  return uhi_msc_mem_translate_status(lun_desc->status);
 
 }
 
 Ctrl_status uhi_msc_mem_write_10_ram(uint32_t addr, const void *ram)
 {
-	uhi_msc_lun_t *lun_desc;
+  uhi_msc_lun_t *lun_desc;
 
-	while (!uhi_msc_is_available());
-	// uhi_msc_mem_lun already selected by a previous command
-	lun_desc = uhi_msc_get_lun_desc(uhi_msc_mem_lun);
-	if (lun_desc == NULL) {
-		return CTRL_FAIL;
-	}
-	if (uhi_msc_mem_translate_status(lun_desc->status) != CTRL_GOOD) {
-		return uhi_msc_mem_translate_status(lun_desc->status);
-	}
-	if (lun_desc->capacity.block_len != 512) {
-		return CTRL_FAIL; // Not supported
-	}
-	uhi_msc_mem_command_ongoing = true;
-	uhi_msc_scsi_write_10(uhi_msc_mem_lun, addr, ram, 1,
-			uhi_msc_mem_stop_pooling);
-	while (uhi_msc_mem_command_ongoing);
-	if (!uhi_msc_mem_command_status) {
-		return CTRL_FAIL;
-	}
-	return uhi_msc_mem_translate_status(lun_desc->status);
+  while (!uhi_msc_is_available());
+  // uhi_msc_mem_lun already selected by a previous command
+  lun_desc = uhi_msc_get_lun_desc(uhi_msc_mem_lun);
+  if (lun_desc == NULL) {
+    return CTRL_FAIL;
+  }
+  if (uhi_msc_mem_translate_status(lun_desc->status) != CTRL_GOOD) {
+    return uhi_msc_mem_translate_status(lun_desc->status);
+  }
+  if (lun_desc->capacity.block_len != 512) {
+    return CTRL_FAIL; // Not supported
+  }
+  uhi_msc_mem_command_ongoing = true;
+  uhi_msc_scsi_write_10(uhi_msc_mem_lun, addr, ram, 1,
+      uhi_msc_mem_stop_pooling);
+  while (uhi_msc_mem_command_ongoing);
+  if (!uhi_msc_mem_command_status) {
+    return CTRL_FAIL;
+  }
+  return uhi_msc_mem_translate_status(lun_desc->status);
 }
 
 //@}
@@ -226,8 +226,8 @@ Ctrl_status uhi_msc_mem_write_10_ram(uint32_t addr, const void *ram)
  */
 static void uhi_msc_mem_stop_pooling(bool b_success)
 {
-	uhi_msc_mem_command_ongoing = false;
-	uhi_msc_mem_command_status = b_success;
+  uhi_msc_mem_command_ongoing = false;
+  uhi_msc_mem_command_status = b_success;
 }
 
 /**
@@ -239,19 +239,21 @@ static void uhi_msc_mem_stop_pooling(bool b_success)
  */
 static Ctrl_status uhi_msc_mem_translate_status(lun_status_t status)
 {
-	switch (status) {
-	case LUN_GOOD:
-		return CTRL_GOOD;
-	case LUN_NOT_PRESENT:
-		return CTRL_NO_PRESENT;
-	case LUN_BUSY:
-		return CTRL_BUSY;
-	case LUN_FAIL:
-	default:
-		return CTRL_FAIL;
-	}
+  switch (status) {
+  case LUN_GOOD:
+    return CTRL_GOOD;
+  case LUN_NOT_PRESENT:
+    return CTRL_NO_PRESENT;
+  case LUN_BUSY:
+    return CTRL_BUSY;
+  case LUN_FAIL:
+  default:
+    return CTRL_FAIL;
+  }
 }
 
 //@}
 
 //@}
+
+// vim: shiftwidth=2

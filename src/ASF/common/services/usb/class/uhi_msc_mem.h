@@ -146,14 +146,14 @@ Ctrl_status uhi_msc_mem_write_10_ram(uint32_t addr, const void *ram);
 /**
  * \page uhi_msc_mem_quickstart Quick start guide for USB host mass-storage module (UHI MSC)
  *
- * This is the quick start guide for the \ref uhi_msc_mem_group 
- * "USB host mass-storage module (UHI MSC)" with step-by-step instructions on 
+ * This is the quick start guide for the \ref uhi_msc_mem_group
+ * "USB host mass-storage module (UHI MSC)" with step-by-step instructions on
  * how to configure and use the modules in a selection of use cases.
  *
  * The use cases contain several code fragments. The code fragments in the
  * steps for setup can be copied into a custom initialization function, while
  * the steps for usage can be copied into, e.g., the main application function.
- * 
+ *
  * \section uhi_msc_mem_basic_use_case Basic use case
  * In this basic use case, the "USB Host MSC (Single Class support)" module is used.
  *
@@ -161,7 +161,7 @@ Ctrl_status uhi_msc_mem_write_10_ram(uint32_t addr, const void *ram);
  * in \ref uhi_msc_mem_use_cases "Advanced use cases".
  *
  * This example do a simple physical memory access, but a File System module
- * can be added to decode the USB memory file system, see FatFS examples. 
+ * can be added to decode the USB memory file system, see FatFS examples.
  *
  * \section uhi_msc_mem_basic_use_case_setup Setup steps
  * \subsection uhi_msc_mem_basic_use_case_setup_prereq Prerequisites
@@ -239,3 +239,5 @@ Ctrl_status uhi_msc_mem_write_10_ram(uint32_t addr, const void *ram);
 #endif
 
 #endif // _UHI_MSC_MEM_H_
+
+// vim: shiftwidth=2
