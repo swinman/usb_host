@@ -45,7 +45,7 @@
 #include "usb_protocol.h"
 #include "uhd.h"
 #include "uhc.h"
-#include "uhi_msc.h"
+#include "uhi_class.h"
 #include <string.h>
 
 #ifdef USB_HOST_HUB_SUPPORT
@@ -61,7 +61,7 @@
  * \ingroup uhi_msc_group
  * \defgroup uhi_msc_group_internal Implementation of UHI Mass Storage Class
  *
- * Class internal implementation 
+ * Class internal implementation
  * @{
  */
 

@@ -41,7 +41,7 @@
  *
  */
 
-#include "uhi_msc.h"
+#include "uhi_class.h"
 #include "uhi_msc_mem.h"
 
 /**
@@ -49,7 +49,7 @@
  * \defgroup uhi_msc_mem_group_internal Implementation of USB host Mass Storage
  * interface for control access module
  *
- * Internal implementation 
+ * Internal implementation
  * @{
  */
 
@@ -117,7 +117,7 @@ Ctrl_status uhi_msc_mem_read_capacity(uint8_t lun, uint32_t * u32_nb_sector)
 	}
 	if (lun_desc->capacity.block_len != 512) {
 		// Note: The ctrl_access module uses only the data transfer size of 512 bytes.
-		// The uhi_msc_mem module does not implement a RAM cache 
+		// The uhi_msc_mem module does not implement a RAM cache
 		// to support the transfer size more than 512 bytes.
 		return CTRL_FAIL; // Not supported
 	}
