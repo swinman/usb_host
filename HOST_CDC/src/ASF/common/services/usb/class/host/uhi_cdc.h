@@ -45,7 +45,7 @@
 #define _UHI_CDC_H_
 
 #include "conf_usb_host.h"
-#include "usb_protocol_cdc.h"
+#include "usb_protocol_class.h"
 #include "uhc.h"
 #include "uhi.h"
 
@@ -58,7 +58,7 @@ extern "C" {
  * \defgroup uhi_cdc_group_uhc Interface with USB Host Core (UHC)
  *
  * Define and functions required by UHC.
- * 
+ *
  * @{
  */
 
@@ -187,14 +187,14 @@ iram_size_t uhi_cdc_write_buf(uint8_t port, const void* buf, iram_size_t size);
 /**
  * \page uhi_cdc_quickstart Quick start guide for USB host Communication Device Class module (UHI CDC)
  *
- * This is the quick start guide for the \ref uhi_cdc_group 
- * "USB host Communication Device Class module (UHI CDC)" with step-by-step instructions on 
+ * This is the quick start guide for the \ref uhi_cdc_group
+ * "USB host Communication Device Class module (UHI CDC)" with step-by-step instructions on
  * how to configure and use the modules in a selection of use cases.
  *
  * The use cases contain several code fragments. The code fragments in the
  * steps for setup can be copied into a custom initialization function, while
  * the steps for usage can be copied into, e.g., the main application function.
- * 
+ *
  * \section uhi_cdc_basic_use_case Basic use case
  * In this basic use case, the "USB Host CDC (Single Class support)" module is used.
  *
