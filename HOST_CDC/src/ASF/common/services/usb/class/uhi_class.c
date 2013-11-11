@@ -45,7 +45,7 @@
 #include "usb_protocol.h"
 #include "uhd.h"
 #include "uhc.h"
-#include "uhi_cdc.h"
+#include "uhi_class.h"
 #include <string.h>
 
 #ifdef USB_HOST_HUB_SUPPORT
@@ -67,7 +67,7 @@
  * \ingroup uhi_cdc_group
  * \defgroup uhi_cdc_group_internal Implementation of UHI Communication Device Class
  *
- * Class internal implementation 
+ * Class internal implementation
  * @{
  */
 
