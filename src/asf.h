@@ -85,10 +85,13 @@
 // From module: System Clock Control - UC3 B0 implementation
 #include <sysclk.h>
 
-// From module: USB Class specific protocol
+// From module: USART - Universal Synchronous/Asynchronous Receiver/Transmitter
+#include <usart.h>
+
+// From module: USB Class Specific Protocol
 #include <usb_protocol_class.h>
 
-// From module: USB Host (Single Class support)
+// From module: USB Host Single Class support
 #include <uhi_class.h>
 
 // From module: USB Host stack core
