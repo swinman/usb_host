@@ -45,7 +45,7 @@
 #include "usb_protocol.h"
 #include "uhd.h"
 #include "uhc.h"
-#include "uhi_hid_mouse.h"
+#include "uhi_class.h"
 #include <string.h>
 
 #ifdef USB_HOST_HUB_SUPPORT
