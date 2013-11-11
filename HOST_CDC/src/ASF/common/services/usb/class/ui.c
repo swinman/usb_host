@@ -51,15 +51,15 @@
  */
 void ui_init(void)
 {
-	LED_Off(LED0);
-	LED_Off(LED1);
-	LED_Off(LED2);
-	LED_Off(LED3);
+  LED_Off(LED0);
+  LED_Off(LED1);
+  LED_Off(LED2);
+  LED_Off(LED3);
 }
 
 void ui_usb_mode_change(bool b_host_mode)
 {
-	ui_init();
+  ui_init();
 }
 //! @}
 
@@ -79,11 +79,11 @@ static bool ui_test_result;
 
 void ui_usb_vbus_change(bool b_vbus_present)
 {
-	if (b_vbus_present) {
-		LED_On(LED0);
-	} else {
-		LED_Off(LED0);
-	}
+  if (b_vbus_present) {
+    LED_On(LED0);
+  } else {
+    LED_Off(LED0);
+  }
 }
 
 void ui_usb_vbus_error(void)
@@ -92,32 +92,32 @@ void ui_usb_vbus_error(void)
 
 void ui_usb_connection_event(uhc_device_t *dev, bool b_present)
 {
-	if (b_present) {
-		LED_On(LED1);
-	} else {
-		ui_enum_status = UHC_ENUM_DISCONNECT;
-		LED_Off(LED1);
-	}
-	LED_Off(LED2);
-	LED_Off(LED3);
+  if (b_present) {
+    LED_On(LED1);
+  } else {
+    ui_enum_status = UHC_ENUM_DISCONNECT;
+    LED_Off(LED1);
+  }
+  LED_Off(LED2);
+  LED_Off(LED3);
 }
 
 void ui_usb_enum_event(uhc_device_t *dev, uhc_enum_status_t status)
 {
-	ui_enum_status = status;
-	switch (dev->speed) {
-	case UHD_SPEED_HIGH:
-		ui_device_speed_blink = 250;
-		break;
-	case UHD_SPEED_FULL:
-		ui_device_speed_blink = 500;
-		break;
-	case UHD_SPEED_LOW:
-	default:
-		ui_device_speed_blink = 1000;
-		break;
-	}
-	ui_test_done = false;
+  ui_enum_status = status;
+  switch (dev->speed) {
+  case UHD_SPEED_HIGH:
+    ui_device_speed_blink = 250;
+    break;
+  case UHD_SPEED_FULL:
+    ui_device_speed_blink = 500;
+    break;
+  case UHD_SPEED_LOW:
+  default:
+    ui_device_speed_blink = 1000;
+    break;
+  }
+  ui_test_done = false;
 }
 
 void ui_usb_wakeup_event(void)
@@ -126,35 +126,35 @@ void ui_usb_wakeup_event(void)
 
 void ui_usb_sof_event(void)
 {
-	static uint16_t counter_sof = 0;
+  static uint16_t counter_sof = 0;
 
-	if (ui_enum_status == UHC_ENUM_SUCCESS) {
+  if (ui_enum_status == UHC_ENUM_SUCCESS) {
 
-		// Display device enumerated and in active mode
-		if (++counter_sof > ui_device_speed_blink) {
-			counter_sof = 0;
-			LED_Toggle(LED1);
-			if (ui_test_done && !ui_test_result) {
-				// Test fail then blink led
-				LED_Toggle(LED3);
-			}
-		}
-	}
+    // Display device enumerated and in active mode
+    if (++counter_sof > ui_device_speed_blink) {
+      counter_sof = 0;
+      LED_Toggle(LED1);
+      if (ui_test_done && !ui_test_result) {
+        // Test fail then blink led
+        LED_Toggle(LED3);
+      }
+    }
+  }
 }
 
 void ui_test_flag_reset(void)
 {
-	ui_test_done = false;
-	LED_Off(LED3);
+  ui_test_done = false;
+  LED_Off(LED3);
 }
 
 void ui_test_finish(bool b_success)
 {
-	ui_test_done = true;
-	ui_test_result = b_success;
-	if (b_success) {
-		LED_On(LED3);
-	}
+  ui_test_done = true;
+  ui_test_result = b_success;
+  if (b_success) {
+    LED_On(LED3);
+  }
 }
 //! @}
 
@@ -162,22 +162,22 @@ void ui_test_finish(bool b_success)
 //! @{
 void ui_start_read(void)
 {
-	LED_On(LED2);
+  LED_On(LED2);
 }
 
 void ui_stop_read(void)
 {
-	LED_Off(LED2);
+  LED_Off(LED2);
 }
 
 void ui_start_write(void)
 {
-	LED_On(LED2);
+  LED_On(LED2);
 }
 
 void ui_stop_write(void)
 {
-	LED_Off(LED2);
+  LED_Off(LED2);
 }
 //! @}
 
@@ -197,3 +197,5 @@ void ui_stop_write(void)
  * - Led 3 is on when a LUN test is success
  * - Led 3 blinks when a LUN test is unsuccessful
  */
+
+// vim: shiftwidth=2

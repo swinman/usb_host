@@ -67,10 +67,10 @@ extern "C" {
 //! Global define which contains standard UHI API for UHC.
 //! It must be added in USB_HOST_UHI define from conf_usb_host.h file.
 #define UHI_MSC { \
-	.install = uhi_msc_install, \
-	.enable = uhi_msc_enable, \
-	.uninstall = uhi_msc_uninstall, \
-	.sof_notify = NULL, \
+  .install = uhi_msc_install, \
+  .enable = uhi_msc_enable, \
+  .uninstall = uhi_msc_uninstall, \
+  .sof_notify = NULL, \
 }
 
 /**
@@ -101,10 +101,10 @@ void uhi_msc_uninstall(uhc_device_t* dev);
 //! Status of LUN
 typedef enum
 {
-	LUN_GOOD       = 0,  //!< Success, memory ready.
-	LUN_FAIL       = 1,  //!< An error occurred.
-	LUN_NOT_PRESENT = 2, //!< Memory unplugged.
-	LUN_BUSY       = 3,  //!< Memory not initialized or changed.
+  LUN_GOOD       = 0,  //!< Success, memory ready.
+  LUN_FAIL       = 1,  //!< An error occurred.
+  LUN_NOT_PRESENT = 2, //!< Memory unplugged.
+  LUN_BUSY       = 3,  //!< Memory not initialized or changed.
 } lun_status_t;
 
 //! Callback type used by uhi_msc_scsi() functions
@@ -112,9 +112,9 @@ typedef void (*uhi_msc_scsi_callback_t) (bool);
 
 //! LUN structure information
 typedef struct {
-	struct sbc_read_capacity10_data capacity;
-	bool b_write_protected;
-	lun_status_t status;
+  struct sbc_read_capacity10_data capacity;
+  bool b_write_protected;
+  lun_status_t status;
 } uhi_msc_lun_t;
 
 //@}
@@ -174,7 +174,7 @@ bool uhi_msc_scsi_test_unit_ready(uint8_t lun, uhi_msc_scsi_callback_t callback)
  * \return true, if the scsi command has been accepted
  */
 bool uhi_msc_scsi_read_10(uint8_t lun, uint32_t addr, uint8_t *ram,
-		uint8_t nb_sector, uhi_msc_scsi_callback_t callback);
+    uint8_t nb_sector, uhi_msc_scsi_callback_t callback);
 
 /**
  * \brief Writes a RAM buffer in a LUN data section
@@ -190,7 +190,7 @@ bool uhi_msc_scsi_read_10(uint8_t lun, uint32_t addr, uint8_t *ram,
  * \return true, if the scsi command has been accepted
  */
 bool uhi_msc_scsi_write_10(uint8_t lun, uint32_t addr, const uint8_t *ram,
-		uint8_t nb_sector, uhi_msc_scsi_callback_t callback);
+    uint8_t nb_sector, uhi_msc_scsi_callback_t callback);
 //@}
 
 //@}
@@ -199,3 +199,5 @@ bool uhi_msc_scsi_write_10(uint8_t lun, uint32_t addr, const uint8_t *ram,
 }
 #endif
 #endif // _UHI_MSC_H_
+
+// vim: shiftwidth=2
