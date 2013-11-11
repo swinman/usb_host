@@ -51,15 +51,15 @@
  */
 void ui_init(void)
 {
-	LED_Off(LED0);
-	LED_Off(LED1);
-	LED_Off(LED2);
-	LED_Off(LED3);
+  LED_Off(LED0);
+  LED_Off(LED1);
+  LED_Off(LED2);
+  LED_Off(LED3);
 }
 
 void ui_usb_mode_change(bool b_host_mode)
 {
-	ui_init();
+  ui_init();
 }
 /*! @} */
 
@@ -75,11 +75,11 @@ static uint16_t ui_device_speed_blink;
 
 void ui_usb_vbus_change(bool b_vbus_present)
 {
-	if (b_vbus_present) {
-		LED_On(LED0);
-	} else {
-		LED_Off(LED0);
-	}
+  if (b_vbus_present) {
+    LED_On(LED0);
+  } else {
+    LED_Off(LED0);
+  }
 }
 
 void ui_usb_vbus_error(void)
@@ -88,44 +88,44 @@ void ui_usb_vbus_error(void)
 
 void ui_usb_connection_event(uhc_device_t *dev, bool b_present)
 {
-	if (b_present) {
-		LED_On(LED1);
-	} else {
-		ui_enum_status = UHC_ENUM_DISCONNECT;
-		LED_Off(LED1);
-	}
-	LED_Off(LED2);
-	LED_Off(LED3);
+  if (b_present) {
+    LED_On(LED1);
+  } else {
+    ui_enum_status = UHC_ENUM_DISCONNECT;
+    LED_Off(LED1);
+  }
+  LED_Off(LED2);
+  LED_Off(LED3);
 }
 
 void ui_usb_enum_event(uhc_device_t *dev, uhc_enum_status_t status)
 {
-	ui_enum_status = status;
-	switch (dev->speed) {
-	case UHD_SPEED_HIGH:
-		ui_device_speed_blink = 250;
-		break;
-	case UHD_SPEED_FULL:
-		ui_device_speed_blink = 500;
-		break;
-	case UHD_SPEED_LOW:
-	default:
-		ui_device_speed_blink = 1000;
-		break;
-	}
-	if (ui_enum_status == UHC_ENUM_SUCCESS) {
-		/* USB Device CDC connected
-		   Open and configure UART and USB CDC ports */
-		usb_cdc_line_coding_t cfg = {
-			.dwDTERate   = CPU_TO_LE32(115200),
-			.bCharFormat = CDC_STOP_BITS_1,
-			.bParityType = CDC_PAR_NONE,
-			.bDataBits   = 8,
-		};
-		uart_open();
-		uart_config(&cfg);
-		uhi_cdc_open(0, &cfg);
-	}
+  ui_enum_status = status;
+  switch (dev->speed) {
+  case UHD_SPEED_HIGH:
+    ui_device_speed_blink = 250;
+    break;
+  case UHD_SPEED_FULL:
+    ui_device_speed_blink = 500;
+    break;
+  case UHD_SPEED_LOW:
+  default:
+    ui_device_speed_blink = 1000;
+    break;
+  }
+  if (ui_enum_status == UHC_ENUM_SUCCESS) {
+    /* USB Device CDC connected
+       Open and configure UART and USB CDC ports */
+    usb_cdc_line_coding_t cfg = {
+      .dwDTERate   = CPU_TO_LE32(115200),
+      .bCharFormat = CDC_STOP_BITS_1,
+      .bParityType = CDC_PAR_NONE,
+      .bDataBits   = 8,
+    };
+    uart_open();
+    uart_config(&cfg);
+    uhi_cdc_open(0, &cfg);
+  }
 }
 
 void ui_usb_wakeup_event(void)
@@ -134,36 +134,36 @@ void ui_usb_wakeup_event(void)
 
 void ui_usb_sof_event(void)
 {
-	static uint16_t counter_sof = 0;
+  static uint16_t counter_sof = 0;
 
-	if (ui_enum_status == UHC_ENUM_SUCCESS) {
+  if (ui_enum_status == UHC_ENUM_SUCCESS) {
 
-		/* Display device enumerated and in active mode */
-		if (++counter_sof > ui_device_speed_blink) {
-			counter_sof = 0;
-			LED_Toggle(LED1);
-		}
-	}
+    /* Display device enumerated and in active mode */
+    if (++counter_sof > ui_device_speed_blink) {
+      counter_sof = 0;
+      LED_Toggle(LED1);
+    }
+  }
 }
 
 void ui_com_rx_start(void)
 {
-	LED_On(LED2);
+  LED_On(LED2);
 }
 
 void ui_com_rx_stop(void)
 {
-	LED_Off(LED2);
+  LED_Off(LED2);
 }
 
 void ui_com_tx_start(void)
 {
-	LED_On(LED3);
+  LED_On(LED3);
 }
 
 void ui_com_tx_stop(void)
 {
-	LED_Off(LED3);
+  LED_Off(LED3);
 }
 
 void ui_com_error(void)
@@ -190,3 +190,5 @@ void ui_com_overflow(void)
  * - Led 2 is on during data transfer from CDC to UART
  * - Led 3 is on during data transfer from UART to CDC
  */
+
+// vim: shiftwidth=2

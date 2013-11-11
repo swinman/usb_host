@@ -65,10 +65,10 @@ extern "C" {
 //! Global define which contains standard UHI API for UHC
 //! It must be added in USB_HOST_UHI define from conf_usb_host.h file.
 #define UHI_CDC { \
-	.install = uhi_cdc_install, \
-	.enable = uhi_cdc_enable, \
-	.uninstall = uhi_cdc_uninstall, \
-	.sof_notify = uhi_cdc_sof, \
+  .install = uhi_cdc_install, \
+  .enable = uhi_cdc_enable, \
+  .uninstall = uhi_cdc_uninstall, \
+  .sof_notify = uhi_cdc_sof, \
 }
 
 /**
@@ -306,3 +306,5 @@ iram_size_t uhi_cdc_write_buf(uint8_t port, const void* buf, iram_size_t size);
 }
 #endif
 #endif // _UHI_CDC_H_
+
+// vim: shiftwidth=2
