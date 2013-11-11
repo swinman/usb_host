@@ -46,7 +46,7 @@
 
 #include "conf_usb_host.h"
 #include "usb_protocol.h"
-#include "usb_protocol_hid.h"
+#include "usb_protocol_class.h"
 #include "uhi.h"
 
 #ifdef __cplusplus
