@@ -65,10 +65,10 @@ extern "C" {
 //! Global define which contains standard UHI API for UHC
 //! It must be added in USB_HOST_UHI define from conf_usb_host.h file.
 #define UHI_HID_MOUSE { \
-	.install = uhi_hid_mouse_install, \
-	.enable = uhi_hid_mouse_enable, \
-	.uninstall = uhi_hid_mouse_uninstall, \
-	.sof_notify = NULL, \
+  .install = uhi_hid_mouse_install, \
+  .enable = uhi_hid_mouse_enable, \
+  .uninstall = uhi_hid_mouse_uninstall, \
+  .sof_notify = NULL, \
 }
 
 /**
@@ -86,7 +86,7 @@ extern void uhi_hid_mouse_uninstall(uhc_device_t* dev);
  * \defgroup uhi_hid_mouse_group UHI for Human Interface Device Mouse Class
  *
  * Common APIs used by high level application to use this USB host class.
- * 
+ *
  * This API requires only callback definitions in conf_usb_host.h file
  * through following defines:
  * - \code  #define UHI_HID_MOUSE_CHANGE(dev,b_plug)
@@ -104,14 +104,14 @@ extern void uhi_hid_mouse_uninstall(uhc_device_t* dev);
 /**
  * \page uhi_hid_mouse_quickstart Quick start guide for USB host mouse module (UHI mouse)
  *
- * This is the quick start guide for the \ref uhi_hid_mouse_group 
- * "USB host mouse module (UHI mouse)" with step-by-step instructions on 
+ * This is the quick start guide for the \ref uhi_hid_mouse_group
+ * "USB host mouse module (UHI mouse)" with step-by-step instructions on
  * how to configure and use the modules in a selection of use cases.
  *
  * The use cases contain several code fragments. The code fragments in the
  * steps for setup can be copied into a custom initialization function, while
  * the steps for usage can be copied into, e.g., the main application function.
- * 
+ *
  * \section uhi_hid_mouse_basic_use_case Basic use case
  * In this basic use case, the "USB Host HID Mouse (Single Class support)" module is used.
  * The "USB Host HID Mouse (Multiple Classes support)" module usage is described
@@ -211,3 +211,5 @@ extern void uhi_hid_mouse_uninstall(uhc_device_t* dev);
 }
 #endif
 #endif // _UHI_HID_MOUSE_H_
+
+// vim: shiftwidth=2
