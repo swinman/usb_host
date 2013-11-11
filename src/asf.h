@@ -85,11 +85,11 @@
 // From module: System Clock Control - UC3 B0 implementation
 #include <sysclk.h>
 
-// From module: USB HID Device protocol
-#include <usb_protocol_hid.h>
+// From module: USB Class specific protocol
+#include <usb_protocol_class.h>
 
-// From module: USB Host HID Mouse (Single Class support)
-#include <uhi_hid_mouse.h>
+// From module: USB Host (Single Class support)
+#include <uhi_class.h>
 
 // From module: USB Host stack core
 #include <uhc.h>
